@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+			 xmlns:local="clr-namespace:XamArcGIS;assembly=XamArcGIS"
+			 xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
+			 x:Class="XamArcGIS.MapPage">
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<local:MapViewModel x:Key="MapViewModel" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="70" />
+		</Grid.RowDefinitions>
+		<esriUI:MapView x:Name="WorldMapView" Grid.Row="0" />
+		<Grid
+			x:Name="DrawToolsGrid"
+			Grid.Row="0"
+			BackgroundColor="White"
+			HorizontalOptions="Center"
+			IsVisible="False"
+			VerticalOptions="Start"
+			WidthRequest="260">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50" />
+				<RowDefinition Height="40" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Label
+				Grid.Row="0"
+				Grid.Column="0"
+				HorizontalOptions="End"
+				Text="Sketch shape:"
+				VerticalOptions="Center" />
+			<Picker
+				x:Name="SketchModePicker"
+				Grid.Row="0"
+				Grid.Column="1"
+				HorizontalOptions="Fill"
+				VerticalOptions="Center" />
+			<Button
+				Grid.Row="1"
+				Grid.Column="1"
+				BorderColor="Gray"
+				Clicked="DrawButtonClick"
+				HeightRequest="35"
+				HorizontalOptions="Center"
+				Text="Draw"
+				VerticalOptions="Start"
+				WidthRequest="100" />
+			<Button
+				x:Name="EditButton"
+				Grid.Row="1"
+				Grid.Column="0"
+				BorderColor="Gray"
+				Clicked="EditButtonClick"
+				HeightRequest="35"
+				HorizontalOptions="Center"
+				IsEnabled="False"
+				Text="Edit"
+				VerticalOptions="Start"
+				WidthRequest="100" />
+		</Grid>
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Button
+				x:Name="DrawEditButton"
+				Grid.Column="0"
+				Clicked="ShowDrawTools"
+				Text="Sketch" />
+			<Button
+				x:Name="CompleteButton"
+				Grid.Column="1"
+				Text="Done" />
+			<Button
+				x:Name="ClearButton"
+				Grid.Column="2"
+				Clicked="ClearButtonClick"
+				IsEnabled="False"
+				Text="Clear" />
+		</Grid>
+	</Grid>
+</ContentPage>
