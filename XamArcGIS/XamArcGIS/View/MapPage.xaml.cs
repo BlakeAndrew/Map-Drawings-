@@ -42,10 +42,13 @@ namespace XamArcGIS
                 switch (mode.ToString())
                 {
                     case "Multipoint":
-                        SketchModePicker.Items.Add(mode.ToString());
+                        AddSketchItem(mode);
                         break;
                     case "Rectangle":
-                        SketchModePicker.Items.Add(mode.ToString());
+                        AddSketchItem(mode);
+                        break;
+                    case "Circle":
+                        AddSketchItem(mode);
                         break;
                     default:
                         break;
@@ -58,6 +61,11 @@ namespace XamArcGIS
             }
 
             CompleteButton.Command = WorldMapView.SketchEditor.CompleteCommand;
+        }
+
+        private void AddSketchItem(object mode)
+        {
+            SketchModePicker.Items.Add(mode.ToString());
         }
 
         #region Graphic and symbol helpers
@@ -73,6 +81,25 @@ namespace XamArcGIS
                             Color = Colors.Purple,
                             Style = SimpleMarkerSymbolStyle.Circle,
                             Size = 15d
+                        };
+                        break;
+                    }
+                case GeometryType.Polyline:
+                    {
+                        symbol = new SimpleLineSymbol()
+                        {
+                            Color = Colors.Red,
+                            Style = SimpleLineSymbolStyle.Solid,
+                            Width = 5d
+                        };
+                        break;
+                    }
+                case GeometryType.Polygon:
+                    {
+                        symbol = new SimpleFillSymbol()
+                        {
+                            Color = Colors.Red,
+                            Style = SimpleFillSymbolStyle.Solid
                         };
                         break;
                     }
@@ -118,6 +145,11 @@ namespace XamArcGIS
                             break;
                         }
                     case "RECTANGLE":
+                        {
+                            creationMode = SketchCreationMode.Rectangle;
+                            break;
+                        }
+                    case "CIRCLE":
                         {
                             creationMode = SketchCreationMode.Rectangle;
                             break;
