@@ -35,11 +35,20 @@ namespace XamArcGIS
 
             Array sketchModes = System.Enum.GetValues(typeof(SketchCreationMode));
 
+
             foreach (var mode in sketchModes)
             {
-                if (mode.ToString().ToUpper() == "MULTIPOINT")
+
+                switch (mode.ToString())
                 {
-                    SketchModePicker.Items.Add(mode.ToString());
+                    case "Multipoint":
+                        SketchModePicker.Items.Add(mode.ToString());
+                        break;
+                    case "Rectangle":
+                        SketchModePicker.Items.Add(mode.ToString());
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -97,7 +106,30 @@ namespace XamArcGIS
             {
                 DrawToolsGrid.IsVisible = false;
 
-                SketchCreationMode creationMode = SketchCreationMode.Multipoint;
+                SketchCreationMode creationMode = (SketchCreationMode)SketchModePicker.SelectedIndex;
+
+                var userSelectedDrawing = SketchModePicker.SelectedItem.ToString().ToUpper();
+
+                switch (userSelectedDrawing)
+                {
+                    case "MULTIPOINT":
+                        {
+                            creationMode = SketchCreationMode.Multipoint;
+                            break;
+                        }
+                    case "RECTANGLE":
+                        {
+                            creationMode = SketchCreationMode.Rectangle;
+                            break;
+                        }
+
+                    default:
+                        {
+                            break;
+                        }
+                }
+
+
                 Esri.ArcGISRuntime.Geometry.Geometry geometry = await WorldMapView.SketchEditor.StartAsync(creationMode, true);
 
                 Graphic graphic = CreateGraphic(geometry);
