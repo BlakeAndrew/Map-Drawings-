@@ -151,7 +151,7 @@ namespace XamArcGIS
                         }
                     case "CIRCLE":
                         {
-                            creationMode = SketchCreationMode.Rectangle;
+                            creationMode = SketchCreationMode.Circle;
                             break;
                         }
 
